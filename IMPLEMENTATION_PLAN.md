@@ -52,17 +52,13 @@ Because grammar rules are recursive by nature, the parser handles nested and var
 | NLTK (CFG) | Grammar-based parsing |
 | Graphviz | Parse tree visualization |
 
-## 6. Phased Plan
+## 6. 3-Phase Execution Plan
 
-| Phase | Deliverable | Key Tasks |
-|---|---|---|
-| **1. Grammar Design** | `grammar/email.cfg` (+ notes) | Define non-terminals, terminals, production rules for the target pattern class (e.g. `EMAIL → LOCAL "@" DOMAIN "." TLD`); document the BNF |
-| **2. Tokenizer** | `lexer.py` | Build regex-based lexer that splits raw input into terminal symbols; unit-test against valid/invalid fragments |
-| **3. Parser Core** | `parser.py` | Implement recursive-descent / LL(1) parser using PLY or NLTK's `nltk.CFG`; wire tokenizer output into the parser |
-| **4. Match/Reject Logic** | `validator.py` | Accept input if a derivation completes; return structured rejection reason otherwise |
-| **5. Parse Tree Output** | `visualize.py` | Generate parse tree from a successful derivation; render with Graphviz; export as image |
-| **6. Testing & Evaluation** | `tests/`, results notebook | Test suite of valid/invalid samples; measure acceptance accuracy and parse time (target: O(n) with LL(1) grammar) |
-| **7. Documentation** | `README.md`, this plan | Usage instructions, grammar reference, sample output |
+| Phase | Phase Name | Primary Modules & Files | Key Deliverables |
+|---|---|---|---|
+| **Phase 1** | **Core Engine & Grammar Foundation** | `grammar/email.cfg`, `lexer.py`, `parser.py` | Formal CFG/BNF rules, regex tokenizer, core LL(1) recursive-descent parser engine |
+| **Phase 2** | **Validation, Visualization & Pipeline Integration** | `validator.py`, `visualize.py` | Accept/Reject verdict engine, Graphviz parse tree image renderer, CLI pipeline tool |
+| **Phase 3** | **Quality Assurance, Benchmarking & Documentation** | `tests/`, `README.md`, `PROJECT_PLAN.md` | Labeled test suite, $O(n)$ time-complexity benchmark, grammar extensibility proof, full docs |
 
 ## 7. Example Walkthrough
 
@@ -83,11 +79,10 @@ Input: `"dhanshree01@gmail.com"` → tokenized into `letters`, `digits`, `@`, `d
 | Tokenizer edge cases (unicode, malformed input) | Add a dedicated tokenizer test set before parser integration |
 | Parser generator learning curve (PLY/ANTLR) | Prototype first with NLTK's built-in CFG parser, migrate to PLY once grammar is stable |
 
-## 10. Milestones (suggested timeline)
+## 10. Milestones & Timeline
 
-| Week | Milestone |
+| Timeline | Phase & Milestone |
 |---|---|
-| 1 | Grammar design finalized + tokenizer working |
-| 2 | Parser core implemented, passing basic derivations |
-| 3 | Match/reject logic + parse tree visualization |
-| 4 | Test suite, evaluation, documentation, GitHub polish |
+| **Week 1** | **Phase 1:** Grammar design finalized (`email.cfg`), tokenizer working (`lexer.py`), core LL(1) parser engine (`parser.py`) passing basic derivations |
+| **Weeks 2–3** | **Phase 2:** Match/reject verdict engine (`validator.py`), parse tree visualizer (`visualize.py`), end-to-end CLI pipeline integration |
+| **Week 4** | **Phase 3:** Automated test suite (`tests/`), $O(n)$ performance evaluation, secondary grammar extensibility demo, project documentation (`PROJECT_PLAN.md`) |
