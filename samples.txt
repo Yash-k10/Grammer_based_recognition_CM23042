@@ -1,0 +1,11 @@
+# Sample Pattern Evaluation Dataset
+dhanshree01@gmail.com
+john.doe@company.org
+user_123@sub-domain.co.in
+test.name+tag@dev.io
+plainaddress
+@missinglocal.com
+user@.com
+user@domain
+user@@domain.com
+user name@gmail.com

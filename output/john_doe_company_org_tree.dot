@@ -1,0 +1,25 @@
+digraph ParseTree {
+    rankdir=TB;
+    node [shape=box, style="filled,rounded", fontname="Helvetica, Arial, sans-serif", fontsize=11, margin="0.2,0.1"];
+    edge [color="#64748B", penwidth=1.5, arrowhead=vee];
+    bgcolor="transparent";
+    node_0 [label="EMAIL", fillcolor="#1E293B", fontcolor="#FFFFFF"];
+    node_1 [label="LOCAL", fillcolor="#3B82F6", fontcolor="#FFFFFF"];
+    node_2 [label="WORD\n'john'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_1 -> node_2;
+    node_3 [label="SEP\n'.'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_1 -> node_3;
+    node_4 [label="WORD\n'doe'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_1 -> node_4;
+    node_0 -> node_1;
+    node_5 [label="AT\n'@'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_0 -> node_5;
+    node_6 [label="DOMAIN", fillcolor="#3B82F6", fontcolor="#FFFFFF"];
+    node_7 [label="WORD\n'company'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_6 -> node_7;
+    node_0 -> node_6;
+    node_8 [label="DOT\n'.'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_0 -> node_8;
+    node_9 [label="TLD\n'org'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_0 -> node_9;
+}

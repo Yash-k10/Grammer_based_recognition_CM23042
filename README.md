@@ -69,17 +69,40 @@ pip install -r requirements.txt
 
 ### Usage
 
+**1. Validate a single pattern with visual tree export:**
 ```bash
-python validator.py --input "dhanshree01@gmail.com" --grammar grammar/email.cfg
+python validator.py --input "dhanshree01@gmail.com" --visualize
 ```
 
-Output includes the accept/reject verdict and, on success, a rendered parse tree image (via Graphviz).
+**2. Output structured JSON:**
+```bash
+python validator.py --input "dhanshree01@gmail.com" --format json
+```
+
+**3. Batch validate a dataset file:**
+```bash
+python validator.py --file samples.txt --visualize
+```
+
+**4. Interactive REPL Mode:**
+```bash
+python validator.py --interactive --visualize
+```
+
+**5. Run Phase 1 and Phase 2 Automated Test Suites:**
+```bash
+python test_phase1.py
+python test_phase2.py
+```
+
+Output includes the accept/reject verdict, error classifications, matched components, terminal Unicode parse tree, and exported visual tree diagrams (`.svg`, `.dot`, `.png`).
 
 ## Results
 
-- **100%** of valid patterns correctly accepted
-- **5** grammar production rules defined (email grammar, v1)
-- **O(n)** parse time using an LL(1) grammar
+- **100%** classification accuracy across valid & invalid edge cases (19/19 tests in Phase 2)
+- **Structured Rejection Diagnoses**: Categorized error reporting (`EMPTY_INPUT`, `LEXICAL_ERROR`, `STRUCTURAL_ERROR`, `DERIVATION_SYNTAX_ERROR`)
+- **Multi-Format Tree Visualization**: Generates Graphviz DOT, pure-Python SVG diagrams, and Unicode terminal trees
+- **O(n)** linear parse time using an unambiguous LL(1) grammar
 
 ## Extending to New Pattern Classes
 
