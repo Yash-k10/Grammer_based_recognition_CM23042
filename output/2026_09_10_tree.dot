@@ -1,0 +1,23 @@
+digraph ParseTree {
+    rankdir=TB;
+    node [shape=box, style="filled,rounded", fontname="Helvetica, Arial, sans-serif", fontsize=11, margin="0.2,0.1"];
+    edge [color="#64748B", penwidth=1.5, arrowhead=vee];
+    bgcolor="transparent";
+    node_0 [label="DATE", fillcolor="#1E293B", fontcolor="#FFFFFF"];
+    node_1 [label="YEAR", fillcolor="#3B82F6", fontcolor="#FFFFFF"];
+    node_2 [label="DIGIT4\n'2026'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_1 -> node_2;
+    node_0 -> node_1;
+    node_3 [label="SEP\n'-'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_0 -> node_3;
+    node_4 [label="MONTH", fillcolor="#3B82F6", fontcolor="#FFFFFF"];
+    node_5 [label="DIGIT2\n'09'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_4 -> node_5;
+    node_0 -> node_4;
+    node_6 [label="SEP\n'-'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_0 -> node_6;
+    node_7 [label="DAY", fillcolor="#3B82F6", fontcolor="#FFFFFF"];
+    node_8 [label="DIGIT2\n'10'", fillcolor="#10B981", fontcolor="#FFFFFF", shape=ellipse];
+    node_7 -> node_8;
+    node_0 -> node_7;
+}

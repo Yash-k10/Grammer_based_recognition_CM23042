@@ -1,0 +1,4 @@
+# Core and Optional Dependencies for Grammar-Based Pattern Recognition Engine
+nltk>=3.8.1
+graphviz>=0.20.1
+python-pptx>=0.6.21

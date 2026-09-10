@@ -65,8 +65,9 @@ class PatternValidator:
 
     def __init__(self, grammar_path: str = "grammar/email.cfg", output_dir: str = "output"):
         self.grammar_path = grammar_path
+        self.grammar_name = "date" if "date" in grammar_path.lower() else "email"
         self.output_dir = output_dir
-        self.lexer = Lexer()
+        self.lexer = Lexer(grammar_type=self.grammar_name)
         self.parser = Parser(grammar_path=grammar_path)
         self.visualizer = ParseTreeVisualizer(output_dir=output_dir)
 

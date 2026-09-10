@@ -2,7 +2,7 @@
 
 **Project type:** AI/ML Mini Project
 **Author:** Dhanshree — AI/ML Engineering, Sipna College of Engineering & Technology (SBJIT), Amravati
-**Repository:** github.com/Dhanshree010/Pattern-Vector-System
+**Repository:** github.com/Yash-k10/Grammer_based_recognition_CM23042
 
 ---
 

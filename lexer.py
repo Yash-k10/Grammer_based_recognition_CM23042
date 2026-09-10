@@ -5,7 +5,7 @@ Converts raw input strings into terminal tokens recognized by context-free gramm
 """
 
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 import re
 
 
@@ -31,21 +31,70 @@ class Lexer:
         'biz', 'dev', 'ai', 'uk', 'ca', 'de', 'jp', 'fr', 'us'
     }
 
-    def __init__(self):
-        pass
+    def __init__(self, grammar_type: str = "email"):
+        self.grammar_type = grammar_type.lower()
 
-    def tokenize(self, input_str: str) -> List[Token]:
+    def tokenize_date(self, input_str: str) -> List[Token]:
         """
-        Tokenizes an input string into a list of Token objects.
+        Tokenizes an input string for date grammar patterns.
         
         Args:
-            input_str: Raw input string (e.g. "dhanshree01@gmail.com")
+            input_str: Raw input string (e.g. "2026-09-10", "15/08/1947")
             
         Returns:
             List of Token instances
         """
         if not input_str or not isinstance(input_str, str):
             return []
+
+        tokens: List[Token] = []
+        curr = 0
+        length = len(input_str)
+
+        while curr < length:
+            char = input_str[curr]
+            if char.isdigit():
+                match = re.match(r'^\d+', input_str[curr:])
+                val = match.group(0)
+                if len(val) == 4:
+                    t_type = 'DIGIT4'
+                elif len(val) == 2:
+                    t_type = 'DIGIT2'
+                else:
+                    t_type = 'WORD'
+                tokens.append(Token(type=t_type, value=val, position=curr))
+                curr += len(val)
+            elif char.isalpha():
+                match = re.match(r'^[a-zA-Z]+', input_str[curr:])
+                val = match.group(0)
+                tokens.append(Token(type='WORD', value=val, position=curr))
+                curr += len(val)
+            elif char in ('-', '/', '.'):
+                tokens.append(Token(type='SEP', value=char, position=curr))
+                curr += 1
+            else:
+                tokens.append(Token(type='INVALID', value=char, position=curr))
+                curr += 1
+
+        return tokens
+
+    def tokenize(self, input_str: str, grammar_type: Optional[str] = None) -> List[Token]:
+        """
+        Tokenizes an input string into a list of Token objects.
+        
+        Args:
+            input_str: Raw input string (e.g. "dhanshree01@gmail.com", "2026-09-10")
+            grammar_type: Optional grammar type override ('email', 'date')
+            
+        Returns:
+            List of Token instances
+        """
+        if not input_str or not isinstance(input_str, str):
+            return []
+
+        target_grammar = (grammar_type or self.grammar_type).lower()
+        if "date" in target_grammar:
+            return self.tokenize_date(input_str)
 
         tokens: List[Token] = []
         at_count = input_str.count('@')

@@ -1,0 +1,133 @@
+{
+  "timestamp": "2026-09-10 21:52:47",
+  "grammar_path": "grammar/email.cfg",
+  "iterations_per_scale": 100,
+  "results": [
+    {
+      "target_length": 10,
+      "actual_length": 20,
+      "token_count": 7,
+      "is_valid": true,
+      "iterations": 100,
+      "mean_latency_us": 13.63,
+      "median_latency_us": 13.2,
+      "min_latency_us": 12.7,
+      "max_latency_us": 27.7,
+      "std_dev_us": 1.94,
+      "memory_delta_kb": 3.29
+    },
+    {
+      "target_length": 25,
+      "actual_length": 25,
+      "token_count": 9,
+      "is_valid": true,
+      "iterations": 100,
+      "mean_latency_us": 16.49,
+      "median_latency_us": 15.7,
+      "min_latency_us": 15.4,
+      "max_latency_us": 56.7,
+      "std_dev_us": 4.25,
+      "memory_delta_kb": 3.9
+    },
+    {
+      "target_length": 50,
+      "actual_length": 50,
+      "token_count": 13,
+      "is_valid": true,
+      "iterations": 100,
+      "mean_latency_us": 20.48,
+      "median_latency_us": 20.8,
+      "min_latency_us": 18.7,
+      "max_latency_us": 25.0,
+      "std_dev_us": 1.12,
+      "memory_delta_kb": 5.02
+    },
+    {
+      "target_length": 100,
+      "actual_length": 100,
+      "token_count": 23,
+      "is_valid": true,
+      "iterations": 100,
+      "mean_latency_us": 33.47,
+      "median_latency_us": 33.3,
+      "min_latency_us": 32.2,
+      "max_latency_us": 36.7,
+      "std_dev_us": 0.66,
+      "memory_delta_kb": 7.92
+    },
+    {
+      "target_length": 250,
+      "actual_length": 250,
+      "token_count": 53,
+      "is_valid": true,
+      "iterations": 100,
+      "mean_latency_us": 83.53,
+      "median_latency_us": 81.2,
+      "min_latency_us": 75.8,
+      "max_latency_us": 134.9,
+      "std_dev_us": 9.41,
+      "memory_delta_kb": 16.72
+    },
+    {
+      "target_length": 500,
+      "actual_length": 500,
+      "token_count": 103,
+      "is_valid": true,
+      "iterations": 100,
+      "mean_latency_us": 163.07,
+      "median_latency_us": 159.9,
+      "min_latency_us": 157.6,
+      "max_latency_us": 294.0,
+      "std_dev_us": 15.21,
+      "memory_delta_kb": 31.28
+    },
+    {
+      "target_length": 1000,
+      "actual_length": 1000,
+      "token_count": 203,
+      "is_valid": true,
+      "iterations": 100,
+      "mean_latency_us": 300.11,
+      "median_latency_us": 283.8,
+      "min_latency_us": 250.1,
+      "max_latency_us": 1070.8,
+      "std_dev_us": 87.08,
+      "memory_delta_kb": 62.2
+    },
+    {
+      "target_length": 2500,
+      "actual_length": 2500,
+      "token_count": 503,
+      "is_valid": true,
+      "iterations": 100,
+      "mean_latency_us": 672.28,
+      "median_latency_us": 677.4,
+      "min_latency_us": 609.8,
+      "max_latency_us": 931.2,
+      "std_dev_us": 55.71,
+      "memory_delta_kb": 159.25
+    },
+    {
+      "target_length": 5000,
+      "actual_length": 5000,
+      "token_count": 1003,
+      "is_valid": true,
+      "iterations": 100,
+      "mean_latency_us": 1678.12,
+      "median_latency_us": 1439.0,
+      "min_latency_us": 1248.5,
+      "max_latency_us": 15935.3,
+      "std_dev_us": 1548.7,
+      "memory_delta_kb": 322.09
+    }
+  ],
+  "complexity_analysis": {
+    "theoretical_complexity": "O(n)",
+    "empirical_complexity": "O(n)",
+    "linear_regression_slope_us_per_char": 0.3243,
+    "intercept_us": -9.11,
+    "correlation_coefficient_r": 0.9953,
+    "r_squared": 0.9907,
+    "is_linear_confirmed": true
+  }
+}

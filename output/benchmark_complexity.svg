@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" width="800" height="500">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#F8FAFC" />
+    </linearGradient>
+    <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.06"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="url(#bgGrad)" rx="12" />
+
+  <!-- Header -->
+  <text x="80" y="34" font-family="Segoe UI, sans-serif" font-size="18" font-weight="700" fill="#0B3033">Parser Performance Benchmark — O(n) Linear Complexity</text>
+  <text x="80" y="50" font-family="Segoe UI, sans-serif" font-size="12" fill="#64748B">Empirical validation: R² = 0.9907 | Slope = 0.3243 µs/char</text>
+
+  <!-- Metric Callout Badge -->
+  <g transform="translate(580, 18)">
+    <rect width="170" height="34" rx="6" fill="#D7EAEA" stroke="#007A6E" stroke-width="1"/>
+    <text x="85" y="21" font-family="Segoe UI, sans-serif" font-size="12" font-weight="700" fill="#007A6E" text-anchor="middle">✓ O(n) VERIFIED (R²: 0.9907)</text>
+  </g>
+
+  <!-- Grid lines -->
+  <line x1="80.0" y1="60" x2="80.0" y2="440" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="80.0" y="460" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="middle">0</text><line x1="214.0" y1="60" x2="214.0" y2="440" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="214.0" y="460" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="middle">1050</text><line x1="348.0" y1="60" x2="348.0" y2="440" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="348.0" y="460" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="middle">2100</text><line x1="482.0" y1="60" x2="482.0" y2="440" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="482.0" y="460" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="middle">3150</text><line x1="616.0" y1="60" x2="616.0" y2="440" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="616.0" y="460" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="middle">4200</text><line x1="750.0" y1="60" x2="750.0" y2="440" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="750.0" y="460" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="middle">5250</text><line x1="80" y1="440.0" x2="750" y2="440.0" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="68" y="444.0" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="end">0</text><line x1="80" y1="364.0" x2="750" y2="364.0" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="68" y="368.0" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="end">385</text><line x1="80" y1="288.0" x2="750" y2="288.0" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="68" y="292.0" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="end">771</text><line x1="80" y1="212.0" x2="750" y2="212.0" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="68" y="216.0" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="end">1157</text><line x1="80" y1="136.0" x2="750" y2="136.0" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="68" y="140.0" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="end">1543</text><line x1="80" y1="60.0" x2="750" y2="60.0" stroke="#E2E8F0" stroke-width="1" stroke-dasharray="3,3" /><text x="68" y="64.0" font-family="Segoe UI, sans-serif" font-size="11" fill="#64748B" text-anchor="end">1929</text>
+
+  <!-- Axes -->
+  <line x1="80" y1="440" x2="750" y2="440" stroke="#475569" stroke-width="1.5" />
+  <line x1="80" y1="60" x2="80" y2="440" stroke="#475569" stroke-width="1.5" />
+
+  <!-- Trendline (Linear Regression) -->
+  <line x1="80.0" y1="440.0" x2="750.0" y2="106.54366843227251" stroke="#00C49F" stroke-width="2.5" stroke-dasharray="6,4" />
+
+  <!-- Data Polyline -->
+  <polyline points="82.55238095238096,437.31614778028 83.19047619047619,436.75299170189413 86.38095238095238,435.96732990022997 92.76190476190476,433.4094986211278 111.9047619047619,423.55229817217815 143.8095238095238,407.8902581460205 207.6190476190476,380.90602423623125 399.04761904761904,307.6228781897755 718.0952380952381,109.56521739130432" fill="none" stroke="#028090" stroke-width="2.5" />
+
+  <!-- Data Points -->
+  <circle cx="82.55238095238096" cy="437.31614778028" r="5" fill="#028090" stroke="#FFFFFF" stroke-width="2" /><text x="82.55238095238096" y="427.31614778028" font-family="Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0B3033" text-anchor="middle">13.63µs</text><circle cx="83.19047619047619" cy="436.75299170189413" r="5" fill="#028090" stroke="#FFFFFF" stroke-width="2" /><text x="83.19047619047619" y="426.75299170189413" font-family="Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0B3033" text-anchor="middle">16.49µs</text><circle cx="86.38095238095238" cy="435.96732990022997" r="5" fill="#028090" stroke="#FFFFFF" stroke-width="2" /><text x="86.38095238095238" y="425.96732990022997" font-family="Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0B3033" text-anchor="middle">20.48µs</text><circle cx="92.76190476190476" cy="433.4094986211278" r="5" fill="#028090" stroke="#FFFFFF" stroke-width="2" /><text x="92.76190476190476" y="423.4094986211278" font-family="Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0B3033" text-anchor="middle">33.47µs</text><circle cx="111.9047619047619" cy="423.55229817217815" r="5" fill="#028090" stroke="#FFFFFF" stroke-width="2" /><text x="111.9047619047619" y="413.55229817217815" font-family="Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0B3033" text-anchor="middle">83.53µs</text><circle cx="143.8095238095238" cy="407.8902581460205" r="5" fill="#028090" stroke="#FFFFFF" stroke-width="2" /><text x="143.8095238095238" y="397.8902581460205" font-family="Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0B3033" text-anchor="middle">163.07µs</text><circle cx="207.6190476190476" cy="380.90602423623125" r="5" fill="#028090" stroke="#FFFFFF" stroke-width="2" /><text x="207.6190476190476" y="370.90602423623125" font-family="Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0B3033" text-anchor="middle">300.11µs</text><circle cx="399.04761904761904" cy="307.6228781897755" r="5" fill="#028090" stroke="#FFFFFF" stroke-width="2" /><text x="399.04761904761904" y="297.6228781897755" font-family="Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0B3033" text-anchor="middle">672.28µs</text><circle cx="718.0952380952381" cy="109.56521739130432" r="5" fill="#028090" stroke="#FFFFFF" stroke-width="2" /><text x="718.0952380952381" y="99.56521739130432" font-family="Segoe UI, sans-serif" font-size="10" font-weight="600" fill="#0B3033" text-anchor="middle">1678.12µs</text>
+
+  <!-- Axis Labels -->
+  <text x="415.0" y="482" font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#334155" text-anchor="middle">Input String Length (Characters, n)</text>
+  <text transform="rotate(-90)" x="-250.0" y="24" font-family="Segoe UI, sans-serif" font-size="12" font-weight="600" fill="#334155" text-anchor="middle">Latency (Microseconds, µs)</text>
+
+  <!-- Legend -->
+  <g transform="translate(520, 70)">
+    <rect width="220" height="48" rx="4" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" />
+    <circle cx="16" cy="16" r="4" fill="#028090" />
+    <text x="28" y="20" font-family="Segoe UI, sans-serif" font-size="11" fill="#334155">Observed Parse Latency</text>
+    <line x1="10" y1="36" x2="22" y2="36" stroke="#00C49F" stroke-width="2" stroke-dasharray="4,3" />
+    <text x="28" y="40" font-family="Segoe UI, sans-serif" font-size="11" fill="#334155">Linear Fit O(n) (Slope: 0.3243)</text>
+  </g>
+</svg>
