@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grammar-Based Pattern Recognition Engine | Formal CFG/BNF Parser Studio</title>
+  <meta name="description" content="State-of-the-art grammar-based pattern recognition engine. Validates, extracts, and visualizes structured patterns using Context-Free Grammars with O(n) linear parsing." />
+  
+  <!-- Google Fonts: Outfit & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Main Design System Stylesheet -->
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- Sticky Modern Navigation Bar -->
+  <nav class="navbar">
+    <a href="#" class="brand-logo">
+      <div class="logo-icon">⟨G⟩</div>
+      <div class="brand-info">
+        <h1>Grammar Recognition Engine</h1>
+        <p>Formal CFG / BNF Pattern Parser • v1.0 Release</p>
+      </div>
+    </a>
+
+    <div class="nav-links">
+      <button class="nav-tab-btn active" data-tab="playground">
+        <span>⚡</span> Playground
+      </button>
+      <button class="nav-tab-btn" data-tab="batch">
+        <span>📁</span> Batch Tester
+      </button>
+      <button class="nav-tab-btn" data-tab="grammars">
+        <span>📜</span> CFG Explorer
+      </button>
+      <button class="nav-tab-btn" data-tab="benchmarks">
+        <span>📊</span> Benchmarks
+      </button>
+      <button class="nav-tab-btn" data-tab="roadmap">
+        <span>🗺️</span> Architecture
+      </button>
+    </div>
+
+    <div class="header-badges">
+      <div class="pill-badge pill-green">
+        <span class="pill-dot"></span>
+        <span>O(n) Linear Parser</span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Interactive Container -->
+  <main class="app-container">
+
+    <!-- ====================================================================
+         TAB 1: LIVE PATTERN PLAYGROUND & TREE VISUALIZER
+         ==================================================================== -->
+    <section id="tab-playground" class="tab-content active">
+      <div class="playground-grid">
+        
+        <!-- Left Column: Input Controls & Verdict -->
+        <div class="glass-panel control-card">
+          <div class="section-title">
+            <h2>Pattern <span>Parser Studio</span></h2>
+            <span class="pill-badge" id="grammar-badge" style="background: #FFF7ED; color: var(--accent-orange-dark); border: 1px solid var(--accent-orange-border);">
+              CFG Model: Email
+            </span>
+          </div>
+
+          <!-- Grammar Selection Switch -->
+          <div class="grammar-switch-container">
+            <button class="grammar-btn active" id="btn-grammar-email" data-grammar="email">
+              <span>📧</span> Email CFG Grammar
+            </button>
+            <button class="grammar-btn" id="btn-grammar-date" data-grammar="date">
+              <span>📅</span> Date CFG Grammar
+            </button>
+          </div>
+
+          <!-- Input Bar -->
+          <div class="input-group">
+            <div class="input-label-row">
+              <span>Enter pattern to validate</span>
+              <span id="char-count">0 chars</span>
+            </div>
+            <div class="input-wrapper">
+              <input 
+                type="text" 
+                id="pattern-input" 
+                class="pattern-input" 
+                placeholder="e.g. dhanshree01@gmail.com" 
+                autocomplete="off"
+                spellcheck="false"
+                value="dhanshree01@gmail.com"
+              />
+              <button class="clear-input-btn" id="clear-input" title="Clear input">✕</button>
+            </div>
+          </div>
+
+          <!-- Quick Preset Chips -->
+          <div class="sample-chips-area">
+            <div class="chips-label">Quick Preset Test Cases:</div>
+            <div class="chips-wrapper" id="sample-chips">
+              <!-- Dynamically populated via JS -->
+            </div>
+          </div>
+
+          <!-- Primary Submit Button -->
+          <button class="validate-btn" id="btn-validate">
+            <span>✨</span> Parse & Derive Pattern
+          </button>
+
+          <!-- Dynamic Token Stream Strip -->
+          <div class="glass-panel token-stream-section" id="token-section">
+            <div class="chips-label">Lexical Terminal Stream:</div>
+            <div class="token-strip" id="token-strip">
+              <span style="color: var(--text-muted); font-size: 0.85rem;">Token stream will appear here...</span>
+            </div>
+          </div>
+
+          <!-- Verdict Hero Box -->
+          <div class="verdict-hero accepted" id="verdict-hero">
+            <div class="verdict-header">
+              <div class="verdict-badge-large" id="verdict-badge">
+                <span>✔</span> ACCEPTED
+              </div>
+              <div class="error-badge-pill" id="error-badge" style="display: none;">
+                ERROR_CODE
+              </div>
+            </div>
+            
+            <div class="verdict-body">
+              <div class="pattern-display-val" id="verdict-pattern">dhanshree01@gmail.com</div>
+              <div class="error-detail-msg" id="verdict-error" style="display: none;"></div>
+            </div>
+
+            <!-- Matched Sub-components Grid -->
+            <div id="matched-section">
+              <div class="chips-label" style="margin-bottom: 0.3rem;">Extracted Sub-Patterns:</div>
+              <div class="matched-components-grid" id="matched-grid">
+                <!-- Dynamically populated via JS -->
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Column: Visual Parse Tree & Derivation -->
+        <div class="visual-panel">
+          <div class="glass-panel" style="padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; height: 100%;">
+            <div class="section-title">
+              <h2>Derivation <span>Parse Tree</span></h2>
+              <div class="visual-tabs">
+                <button class="vis-tab-btn active" id="btn-vis-svg">Vector SVG Tree</button>
+                <button class="vis-tab-btn" id="btn-vis-ascii">Monospace Tree</button>
+              </div>
+            </div>
+
+            <!-- Visual Display Surface -->
+            <div class="tree-view-wrapper">
+              <div id="tree-svg-container" class="tree-svg-container">
+                <div class="tree-empty-state">
+                  <div class="icon">🌳</div>
+                  <p>Click "Parse & Derive Pattern" to generate parse tree.</p>
+                </div>
+              </div>
+
+              <div id="tree-ascii-container" class="tree-ascii-view" style="display: none;">
+                <!-- ASCII tree inserted here -->
+              </div>
+            </div>
+
+            <!-- Node Type Palette Legend -->
+            <div style="display: flex; gap: 1rem; justify-content: center; font-size: 0.78rem; font-weight: 600; color: var(--text-muted); border-top: 1px solid var(--border-subtle); padding-top: 0.75rem;">
+              <span style="display: flex; align-items: center; gap: 0.35rem;">
+                <span style="width: 12px; height: 12px; background: #EA580C; border-radius: 3px;"></span> Root Symbol
+              </span>
+              <span style="display: flex; align-items: center; gap: 0.35rem;">
+                <span style="width: 12px; height: 12px; background: #F97316; border-radius: 3px;"></span> Non-Terminal
+              </span>
+              <span style="display: flex; align-items: center; gap: 0.35rem;">
+                <span style="width: 12px; height: 12px; background: #059669; border-radius: 3px;"></span> Terminal Symbol
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 2: BATCH DATASET TESTER
+         ==================================================================== -->
+    <section id="tab-batch" class="tab-content">
+      <div class="batch-container">
+        <div class="glass-panel" style="padding: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem;">
+          <div class="section-title">
+            <h2>Batch Dataset <span>Evaluation</span></h2>
+            <button class="sample-chip" id="btn-load-default-batch" style="font-size: 0.82rem; padding: 0.5rem 1rem;">
+              📥 Load Default samples.txt
+            </button>
+          </div>
+
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Paste patterns below (one per line) to evaluate the complete dataset against formal grammar rules simultaneously.
+          </p>
+
+          <textarea id="batch-input-area" class="batch-textarea" placeholder="Enter one pattern per line..."></textarea>
+
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <button class="validate-btn" id="btn-run-batch" style="padding: 0.75rem 1.75rem;">
+              🚀 Run Batch Validation
+            </button>
+            <span id="batch-status-text" style="font-size: 0.88rem; color: var(--text-muted);">Ready to evaluate.</span>
+          </div>
+        </div>
+
+        <!-- Aggregate Statistics Bar -->
+        <div class="batch-stats-bar">
+          <div class="glass-panel stat-metric-card">
+            <div class="stat-label">Total Evaluated</div>
+            <div class="stat-val" id="batch-stat-total">0</div>
+          </div>
+          <div class="glass-panel stat-metric-card">
+            <div class="stat-label">Accepted Patterns</div>
+            <div class="stat-val green" id="batch-stat-accepted">0</div>
+          </div>
+          <div class="glass-panel stat-metric-card">
+            <div class="stat-label">Rejected Patterns</div>
+            <div class="stat-val red" id="batch-stat-rejected">0</div>
+          </div>
+          <div class="glass-panel stat-metric-card">
+            <div class="stat-label">Accuracy Rate</div>
+            <div class="stat-val" id="batch-stat-rate" style="color: var(--accent-cyan);">0%</div>
+          </div>
+        </div>
+
+        <!-- Batch Results Table -->
+        <div class="glass-panel" style="padding: 1.5rem; overflow-x: auto;">
+          <table class="batch-results-table">
+            <thead>
+              <tr>
+                <th style="width: 80px;">#</th>
+                <th>Pattern String</th>
+                <th style="width: 130px;">Verdict</th>
+                <th style="width: 200px;">Diagnostic Code</th>
+                <th>Reason / Sub-Components</th>
+              </tr>
+            </thead>
+            <tbody id="batch-table-body">
+              <tr>
+                <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2rem;">
+                  No batch results yet. Click "Run Batch Validation".
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 3: FORMAL CFG / BNF RULES EXPLORER
+         ==================================================================== -->
+    <section id="tab-grammars" class="tab-content">
+      <div class="grammars-grid">
+        <!-- Email Grammar Card -->
+        <div class="glass-panel grammar-card">
+          <div class="section-title">
+            <h2>📧 Email Pattern <span>Grammar</span></h2>
+            <span class="pill-badge pill-green">CFG / BNF</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-secondary);">
+            Production rules defining valid RFC-standard local identifiers, structural '@' delimiters, recursive domain labels, and Top-Level Domains.
+          </p>
+          <pre class="grammar-code-box" id="grammar-email-code">Loading email grammar rules...</pre>
+        </div>
+
+        <!-- Date Grammar Card -->
+        <div class="glass-panel grammar-card">
+          <div class="section-title">
+            <h2>📅 Calendar Date <span>Grammar</span></h2>
+            <span class="pill-badge" style="background: rgba(99, 102, 241, 0.15); color: #818CF8; border: 1px solid rgba(99, 102, 241, 0.3);">Phase 3 Proof</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-secondary);">
+            Production rules supporting ISO (<code>YYYY-MM-DD</code>) and European (<code>DD/MM/YYYY</code>) formats with calendar and leap-year constraints.
+          </p>
+          <pre class="grammar-code-box" id="grammar-date-code">Loading date grammar rules...</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 4: PERFORMANCE BENCHMARK CENTER
+         ==================================================================== -->
+    <section id="tab-benchmarks" class="tab-content">
+      <div class="benchmark-grid">
+        
+        <div class="glass-panel bench-chart-card">
+          <div class="section-title">
+            <h2>Latency vs. Input Scale <span>(O(n) Empirical Proof)</span></h2>
+            <span class="pill-badge pill-green" id="badge-r2">R² = 0.9907</span>
+          </div>
+          <p style="font-size: 0.88rem; color: var(--text-secondary);">
+            Empirical latency measurements across scaling pattern sizes ($N=20$ to $N=5,000$ characters). The linear regression fit proves $O(n)$ deterministic complexity.
+          </p>
+          
+          <div class="tree-view-wrapper" id="bench-svg-container" style="min-height: 380px;">
+            <!-- Rendered SVG chart loaded here -->
+            <p style="color: var(--text-muted);">Loading benchmark curve...</p>
+          </div>
+
+          <div style="display: flex; justify-content: flex-end;">
+            <button class="validate-btn" id="btn-re-benchmark" style="padding: 0.65rem 1.4rem; font-size: 0.88rem;">
+              🔄 Re-Run Live Benchmark
+            </button>
+          </div>
+        </div>
+
+        <!-- Complexity Metrics & Stats -->
+        <div class="glass-panel" style="padding: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem;">
+          <div class="section-title">
+            <h2>Complexity <span>Analytics</span></h2>
+          </div>
+
+          <div class="bench-stats-list">
+            <div class="bench-stat-row">
+              <span class="lbl">Theoretical Complexity</span>
+              <span class="val">O(n) Linear</span>
+            </div>
+            <div class="bench-stat-row">
+              <span class="lbl">Empirical Verdict</span>
+              <span class="val" style="color: var(--status-accepted);">✔ O(n) CONFIRMED</span>
+            </div>
+            <div class="bench-stat-row">
+              <span class="lbl">Coefficient of Determination (R²)</span>
+              <span class="val" id="stat-r2">0.9907</span>
+            </div>
+            <div class="bench-stat-row">
+              <span class="lbl">Pearson Correlation (r)</span>
+              <span class="val" id="stat-r">0.9953</span>
+            </div>
+            <div class="bench-stat-row">
+              <span class="lbl">Processing Latency Slope</span>
+              <span class="val" id="stat-slope">0.3243 µs / char</span>
+            </div>
+            <div class="bench-stat-row">
+              <span class="lbl">Max Latency at 5,000 chars</span>
+              <span class="val">~1.67 ms</span>
+            </div>
+          </div>
+
+          <div style="background: rgba(0, 0, 0, 0.3); border-radius: var(--radius-sm); padding: 1rem; border-left: 3px solid var(--accent-cyan); font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6;">
+            <strong>Algorithmic Guarantee:</strong> Because the production rules are designed as unambiguous LL(1) Context-Free Grammars, the recursive-descent parser requires strictly linear $O(n)$ time with zero catastrophic backtracking.
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         TAB 5: SYSTEM ARCHITECTURE & 3-PHASE ROADMAP
+         ==================================================================== -->
+    <section id="tab-roadmap" class="tab-content">
+      <div class="glass-panel" style="padding: 2rem; margin-bottom: 1.75rem;">
+        <div class="section-title">
+          <h2>End-to-End <span>Pipeline Flow</span></h2>
+          <span class="pill-badge pill-green">5-Stage Pipeline</span>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-top: 1.5rem; text-align: center;">
+          <div style="background: var(--bg-surface); padding: 1.1rem; border-radius: var(--radius-md); border: 1.5px solid var(--border-subtle);">
+            <div style="font-size: 1.6rem; margin-bottom: 0.4rem;">📝</div>
+            <div style="font-weight: 800; font-size: 0.9rem; color: var(--accent-orange-dark);">1. Raw Input</div>
+            <div style="font-size: 0.76rem; font-weight: 600; color: var(--text-muted); margin-top: 0.25rem;">Text stream</div>
+          </div>
+          <div style="background: var(--bg-surface); padding: 1.1rem; border-radius: var(--radius-md); border: 1.5px solid var(--border-subtle);">
+            <div style="font-size: 1.6rem; margin-bottom: 0.4rem;">✂️</div>
+            <div style="font-weight: 800; font-size: 0.9rem; color: var(--accent-orange-dark);">2. Lexer Tokenizer</div>
+            <div style="font-size: 0.76rem; font-weight: 600; color: var(--text-muted); margin-top: 0.25rem;">Terminal tokens</div>
+          </div>
+          <div style="background: var(--bg-surface); padding: 1.1rem; border-radius: var(--radius-md); border: 1.5px solid var(--border-subtle);">
+            <div style="font-size: 1.6rem; margin-bottom: 0.4rem;">⚙️</div>
+            <div style="font-weight: 800; font-size: 0.9rem; color: var(--accent-orange-dark);">3. LL(1) Parser</div>
+            <div style="font-size: 0.76rem; font-weight: 600; color: var(--text-muted); margin-top: 0.25rem;">CFG derivation</div>
+          </div>
+          <div style="background: var(--bg-surface); padding: 1.1rem; border-radius: var(--radius-md); border: 1.5px solid var(--border-subtle);">
+            <div style="font-size: 1.6rem; margin-bottom: 0.4rem;">⚖️</div>
+            <div style="font-weight: 800; font-size: 0.9rem; color: var(--accent-orange-dark);">4. Verdict Engine</div>
+            <div style="font-size: 0.76rem; font-weight: 600; color: var(--text-muted); margin-top: 0.25rem;">Accept / Reject</div>
+          </div>
+          <div style="background: var(--bg-surface); padding: 1.1rem; border-radius: var(--radius-md); border: 1.5px solid var(--border-subtle);">
+            <div style="font-size: 1.6rem; margin-bottom: 0.4rem;">🌳</div>
+            <div style="font-weight: 800; font-size: 0.9rem; color: var(--accent-orange-dark);">5. Tree Renderer</div>
+            <div style="font-size: 0.76rem; font-weight: 600; color: var(--text-muted); margin-top: 0.25rem;">SVG / DOT / ASCII</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Phase Cards -->
+      <div class="roadmap-grid">
+        <div class="glass-panel phase-card">
+          <div class="phase-tag">
+            <span>Phase 1 • Week 1</span>
+            <span class="pill-badge pill-green">COMPLETED</span>
+          </div>
+          <h3>Core Engine & Grammar</h3>
+          <p>Established foundational CFG production rules, position-aware regex tokenizer, and recursive-descent LL(1) derivation engine.</p>
+          <ul class="phase-deliverables">
+            <li><code>grammar/email.cfg</code></li>
+            <li><code>lexer.py</code> tokenizer</li>
+            <li><code>parser.py</code> derivation core</li>
+            <li>10/10 Test cases passing</li>
+          </ul>
+        </div>
+
+        <div class="glass-panel phase-card">
+          <div class="phase-tag">
+            <span>Phase 2 • Weeks 2–3</span>
+            <span class="pill-badge pill-green">COMPLETED</span>
+          </div>
+          <h3>Validation & Visualization</h3>
+          <p>Accept/Reject decision engine, structured error diagnostic categorization, and multi-format parse tree visualizers (SVG, DOT, Unicode ASCII).</p>
+          <ul class="phase-deliverables">
+            <li><code>validator.py</code> CLI engine</li>
+            <li><code>visualize.py</code> SVG/DOT renderer</li>
+            <li>Interactive REPL & batch pipeline</li>
+            <li>19/19 Test cases passing</li>
+          </ul>
+        </div>
+
+        <div class="glass-panel phase-card">
+          <div class="phase-tag">
+            <span>Phase 3 • Week 4</span>
+            <span class="pill-badge pill-green">COMPLETED</span>
+          </div>
+          <h3>QA, Benchmarks & Web UI</h3>
+          <p>Comprehensive 39-test QA suite, O(n) linear performance verification, secondary date grammar extensibility proof, and modern Web Studio interface.</p>
+          <ul class="phase-deliverables">
+            <li><code>grammar/date.cfg</code> extensibility</li>
+            <li><code>benchmark.py</code> ($R^2 = 0.9907$)</li>
+            <li>Interactive Web Application</li>
+            <li>39/39 Test cases passing (100%)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div>
+      <strong>Grammar-Based Pattern Recognition Engine</strong> — AI/ML Engineering Project
+    </div>
+    <div>
+      Author: <strong>Dhanshree</strong> • Sipna COET (SBJIT) • 
+      <a href="https://github.com/Yash-k10/Grammer_based_recognition_CM23042" target="_blank" rel="noopener">GitHub Repository</a>
+    </div>
+  </footer>
+
+  <!-- Main JavaScript App Logic -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

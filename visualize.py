@@ -186,14 +186,14 @@ class ParseTreeVisualizer:
             f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" width="{width}" height="{height}">',
             '  <defs>',
             '    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">',
-            '      <stop offset="0%" stop-color="#0F172A" />',
-            '      <stop offset="100%" stop-color="#1E293B" />',
+            '      <stop offset="0%" stop-color="#FFFFFF" />',
+            '      <stop offset="100%" stop-color="#F8FAFC" />',
             '    </linearGradient>',
             '    <filter id="shadow" x="-10%" y="-10%" width="130%" height="130%">',
-            '      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000" flood-opacity="0.3"/>',
+            '      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#CBD5E1" flood-opacity="0.6"/>',
             '    </filter>',
             '  </defs>',
-            f'  <rect width="{width}" height="{height}" fill="url(#bgGrad)" rx="12" />',
+            f'  <rect width="{width}" height="{height}" fill="url(#bgGrad)" stroke="#E2E8F0" stroke-width="1.5" rx="12" />',
             '  <!-- Connection Lines -->',
         ]
 
@@ -203,7 +203,7 @@ class ParseTreeVisualizer:
                 cnode, cx, cy, _ = node_positions[cnid]
                 svg_parts.append(
                     f'  <line x1="{x}" y1="{y + 18}" x2="{cx}" y2="{cy - 18}" '
-                    f'stroke="#64748B" stroke-width="2" stroke-linecap="round" />'
+                    f'stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round" />'
                 )
 
         svg_parts.append('  <!-- Tree Nodes -->')
@@ -212,20 +212,20 @@ class ParseTreeVisualizer:
         for nid, (node, x, y, _) in node_positions.items():
             is_leaf = node.is_leaf()
             if nid == 0:
-                fill = "#6366F1"  # Indigo for root
-                stroke = "#818CF8"
+                fill = "#EA580C"  # Bold Orange for Root
+                stroke = "#C2410C"
                 label = node.symbol
                 sublabel = None
-                box_w, box_h = 100, 36
+                box_w, box_h = 105, 38
             elif is_leaf:
-                fill = "#10B981"  # Emerald for terminals
-                stroke = "#34D399"
+                fill = "#059669"  # Emerald Green for Terminals
+                stroke = "#047857"
                 label = node.symbol
                 sublabel = f"'{node.value}'" if node.value is not None else ""
-                box_w, box_h = 95, 42
+                box_w, box_h = 100, 42
             else:
-                fill = "#0284C7"  # Sky Blue for non-terminals
-                stroke = "#38BDF8"
+                fill = "#F97316"  # Vibrant Orange for Non-terminals
+                stroke = "#EA580C"
                 label = node.symbol
                 sublabel = None
                 box_w, box_h = 90, 34
